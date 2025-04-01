@@ -47,6 +47,14 @@ public class CounterController {
         CounterStrategy strategy = applicationContext.getBean(type, CounterStrategy.class);
         int result = strategy.increment();
 
+        if (result == -1) {
+            return Map.of(
+                    "type", type,
+                    "status", "fail",
+                    "message", "系统繁忙，请稍后重试"
+            );
+        }
+
         return Map.of(
                 "type", type,
                 "result", result
