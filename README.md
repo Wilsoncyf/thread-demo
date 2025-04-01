@@ -14,19 +14,36 @@
 ## 📁 项目结构
 
 ```
-src/main/java/com/example/threaddemo/thread/
-├── Main.java                    // 线程创建演示（Lambda/Runnable/Thread）
-├── UnsafeCounter.java           // 非线程安全计数器
-├── SafeCounter.java             // synchronized 线程安全计数器
-├── LockCounter.java             // ReentrantLock 示例
-├── AtomicCounter.java           // AtomicInteger 示例
-├── AtomicIntegerDemo.java       // 原子操作测试
-├── TestLock.java                // 基础 Lock 用法
-├── TestLockInterruptibly.java   // 可中断锁 + 降级机制演示
-├── StockService.java            // 秒杀库存服务，带降级处理
+thread-demo/
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/threaddemo/
+│   │   │   ├── controller/           ← 对外接口
+│   │   │   ├── service/              ← 业务逻辑
+│   │   │   ├── lock/                 ← 锁实现模块（Lock、CAS、自旋）
+│   │   │   ├── context/              ← ThreadLocal 上下文隔离（可选）
+│   │   │   └── ThreadDemoApplication.java
+│   │   └── resources/application.properties
+│   └── test/...
+├── stress-test/                      ← Python 并发压测脚本
+├── README.md
+├── pom.xml
+          
 ```
 
 ---
+
+## 线程安全策略测试接口
+
+GET /api/count/increment?type={strategy}
+
+| type 值         | 实现方式        |
+|-----------------|----------------|
+| atomic          | AtomicInteger |
+| synchronized    | synchronized 关键字 |
+| lock            | ReentrantLock |
+| spin            | 自旋锁（CAS） |
+| threadLocal     | 每线程独立计数（非共享） |
 
 ## 🚀 快速开始
 
@@ -57,3 +74,4 @@ Wilson Chen
 GitHub: [@Wilsoncyf](https://github.com/Wilsoncyf)
 
 ---
+
